@@ -1,0 +1,86 @@
+
+
+@import "tailwindcss";
+
+
+
+body{
+    margin: 0;
+    padding:0;
+    font-family: 'Gilroy-Regular', 'Open Sans', sans-serif;
+}
+html{
+    width: 100%;
+}
+
+@font-face {
+  font-family: Gilroy-regular;
+  src: url(./assets/Gilroy-Regular.ttf);
+}
+@font-face {
+  font-family: Gilroy-bold;
+  src: url(./assets/Gilroy-Heavy.ttf);
+}
+@font-face {
+  font-family: Gilroy-semibold;
+  src: url(./assets/Gilroy-Medium.ttf);
+}
+::selection{
+  color: peru;
+  background-color:  rgb(255, 242, 219);
+}
+
+:root {
+  --primary: #008171;
+  --secondary: #d6d3d1;
+  
+  --text-primary: #1a1a1a;
+  --text-secondary: #716f6f;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;   /* light gray */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccd;   /* soft slate */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #648b7d;   /* darker on hover */
+}
+
+
+@layer components {
+  .text-title {
+    @apply text-xl font-semibold;
+  }
+
+  .text-subtitle {
+    @apply text-[1rem] ;
+  }
+
+  .text-body {
+    @apply text-[1rem] text-gray-600 font-semibold;
+  }
+
+  .text-label {
+    @apply text-xs font-medium text-gray-500;
+  }
+}
