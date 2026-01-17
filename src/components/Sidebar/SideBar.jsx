@@ -5,12 +5,13 @@ import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { PiStethoscope } from "react-icons/pi";
 import { IoPerson } from "react-icons/io5";
 
-const SideBar = () => {
+const SideBar = ({open , setOpen}) => {
   return (
-    <div className='w-65 bg-[#fff] border-r-[1.8px] border-[#c7c7c7]'>
+    <div className={`fixed sm:static sm:w-65 top-0 left-0 h-screen bg-[#fff] border-r-[1.5px] border-[#c7c7c7] transform transition-transform duration-300 ${open ? "translate-x-0" :"-translate-x-full"} sm:translate-x-0 z-10`}>
       <aside className='flex flex-col gap-4'>
-        <div className='border-b-[1.8px] border-[#c7c7c7] py-1 h-18'>
+        <div className='border-b-[1.5px] border-[#c7c7c7] py-1 h-18 flex justify-between'>
           <p className='px-5 py-4'>logo</p>
+          <button onClick={() => setOpen(false)} className="sm:hidden mr-2">✕</button>
         </div>
 
         <div className='flex flex-col gap-3 px-4 '>

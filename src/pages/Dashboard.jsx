@@ -25,7 +25,7 @@ const Dashboard = () => {
     <div className='flex flex-col  h-full'>
       {/* //dashboardTop */}
      <div className='dashboardTop flex justify-between items-center p-4 '>
-      <h1 className='font-bold text-2xl'>Dashboard</h1>
+      <h1 className='font-bold text-xl sm:text-2xl'>Dashboard</h1>
       <div className='buttons flex items-center gap-3'>
         <Button variant='secondary'>
           <span className='transition'>Weekly</span>
@@ -39,8 +39,8 @@ const Dashboard = () => {
      </div>
 
       {/* Charts */}
-     <div className='content bg-transparent p-4 grid grid-cols-1 sm:grid-cols-12 sm:grid-rows-2 gap-4'>
-        <div className="sm:col-span-8 sm:row-span-2 bg-white border border-stone-200 rounded-xl p-5 shadow-sm">
+     <div className='content bg-transparent p-4 grid grid-cols-2 sm:grid-cols-12 sm:grid-rows-2 gap-4'>
+        <div className="col-span-full sm:col-span-8 sm:row-span-2 bg-white border border-stone-200 rounded-xl p-5 shadow-sm">
           {/* BarChartHeading */}
           <Heading title="Number of Patients" 
                    subtitle="Monthly overview"
@@ -72,7 +72,7 @@ const Dashboard = () => {
         </div>
      </div>
 
-    <AppointmentForm />
+    
     </div>
 
     

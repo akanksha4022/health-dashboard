@@ -1,53 +1,69 @@
 import React, { useEffect, useState } from 'react'
+import AppointmentForm from './AppointmentForm'
 import AppointmentRow from './AppointmentRow'
 import Heading from '../ui/Heading'
 import Button from '../ui/Button'
 import { IoIosArrowDown } from "react-icons/io";
+import AppointmentModal from './AppointmentModal';
+import { setItem, getItem } from '../../utils/localstorage';
 
 
 const AppointmentList = () => {
-    const [appointments, setAppointments] = useState([]);
-    const [form, setForm] = useState({
-        patient:"",
-        doctor:"",
-        date:"",
-        time:""
-    })
-    //how to store object by using form in this array
+  //how to store object by using form in this array
+    const [appointments, setAppointments] = useState(()=>{
+      const savedData = getItem('HEALTH_DASHBOARD_APPOINTMENT');
+      return savedData ?? [];    
+    }
+  );
+    const [isModalOpen, setIsModalOpen] = useState(false);    
+    
+
+    const handleAppointment=(addnewAppointment)=>{
+      setAppointments(prev=>[...prev, addnewAppointment])
+    }
+
+  
 
     useEffect(()=>{
-        const data = window.localStorage.getItem('HEALTH_DASHBOARD_APPOINTMENT');
-        if(data)
-            {
-                setAppointments(JSON.parse(data));
-            } 
-    },[])
+        setItem('HEALTH_DASHBOARD_APPOINTMENT', appointments)
+    },[appointments]);
 
-    useEffect(()=>{
-        window.localStorage.setItem('HEALTH_DASHBOARD_APPOINTMENT', JSON.stringify(appointments))
-    },[appointments])
+    const totalAppointments = appointments.length;
     
   return (
-    <div className='appointment sm:col-span-8 sm:row-span-2 bg-white border border-stone-200 rounded-xl p-5 shadow-sm flex flex-col h-full'>
+    
+    <div className='appointment sm:col-span-8 sm:row-span-2 bg-white border border-stone-200 rounded-xl p-5 shadow-sm flex flex-col h-full '>
+      
+
           <Heading title="Booked Appointment" 
                    actions={[
                               <Button variant="secondary">
                                 Today
                                 <IoIosArrowDown className="text-sm" />
                               </Button>,
-                              <Button variant="primary">
+                              <Button variant="primary" onClick={()=>setIsModalOpen(true)}>
                                 Add New
                                 <IoIosArrowDown className="text-sm" />
                               </Button>
           ]} />
-
+          {
+            isModalOpen && (
+              <AppointmentModal onClose={()=>setIsModalOpen(false)}>
+                <AppointmentForm 
+                  addAppointment={handleAppointment} 
+                  onClose={()=>setIsModalOpen(false)} 
+                />
+              </AppointmentModal>
+            )
+          }
           <div className='appointmentContext w-full flex items-center justify-between text-sm text-stone-500 mb-5'>
-            <span>Total appointment today: 13</span>
+            <span>Total appointment today: {totalAppointments}</span>
             <span>Pending : 12</span>
             <span>completed: 1</span>
-            <button onClick={()=>setAppointments(false)}>load</button>
+            
           </div>
-          <div className='listContainer h-full flex-1 overflow-y-scroll '>
+
+          <div className='listContainer h-full flex-1 overflow-y-scroll overflow-x-hidden'>
             <div className='listheader grid grid-cols-5  px-2 py-3 bg-stone-50 rounded-sm text-sm text-stone-600 text-center font-medium capitalize'>
               <div className='flex items-center gap-2'>
                 <input type="checkbox" />
@@ -60,22 +76,38 @@ const AppointmentList = () => {
                 actions
               </div>
             </div>
-          {appointments ?
-          <div>
-            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
-            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
-            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
-            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
-            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
-            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
-          </div>              
+          {appointments.length>0 ? 
+            appointments.map((item, index)=>(
+              <AppointmentRow 
+              key={index} 
+              PatientName={item.patient}
+              DoctorName={item.doctor} 
+              Date={item.date}  
+              Time={item.time}
+              />
+            )
+
+            )
           
-          : <p>Nothing today 😈</p>}
+          : <p className='text-stone-400 relative top-17 left-70'>No appointments! Enjoy!😊</p> }
+          {/* <div>
+            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
+            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
+            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
+            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
+            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
+            <AppointmentRow PatientName="Julie Brown" DoctorName="Dr. James Bond" Date="22/2/2012" Time="21:29" />
+          </div>               */}
+          
+          
               
 
           </div>
 
+        
         </div>
+
+        
   )
 }
 
