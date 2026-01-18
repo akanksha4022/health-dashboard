@@ -5,17 +5,22 @@ import { FiArrowDownRight } from "react-icons/fi";
 
 const Card = ({title, number, barValue, percent, trend, color, icon}) => {
   return (
-    <div className='sm:col-span-2 sm:row-span-1 min-h-40 bg-transparent rounded-lg flex flex-col p-4 border border-stone-300 gap-6 shadow'>
-        <div className='flex gap-3 items-center'>
+    <div className='sm:col-span-2 sm:row-span-1 h-full bg-white rounded-xl flex flex-col p-2 sm:p-3 border border-stone-300 gap-4 sm:gap-5 shadow-sm'>
+        <div className='flex items-center gap-1 
+        sm:gap-3'>
+            <div className='w-10 h-10 flex items-center justify-center '>
             {React.cloneElement(icon, {
-                className: 'text-3xl  rounded-full  p-1',
+                className: 'text-2xl sm:text-3xl  rounded-full  p-1 ',
                 style: {backgroundColor: `${color}33`,color: `${color}` }
             })}
             {/* <PiStethoscope className={``} style={{backgroundColor: `${color}33`,color: `${color}` }} /> */}
-            <span className='text-lg font-["Gilroy-semibold"]'>{title}</span>
+            
+            </div>
+            <span className=' text-base sm:text-lg font-["Gilroy-semibold"] line-clamp-1'>{title}</span>
         </div>
-        <div className='flex flex-col gap-1'>
-            <span className='font-bold text-2xl'>{number}</span>
+        
+        <div className='flex flex-col gap-2'>
+            <span className='font-bold text-xl sm:text-2xl'>{number}</span>
             <div className='h-2 rounded-full overflow-hidden bg-gray-300'>
                 <div className={`h-full rounded-full transition-all`} style={{width:`${percent}%`, backgroundColor: `${color}`}}>
                         

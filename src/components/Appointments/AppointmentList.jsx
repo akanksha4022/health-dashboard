@@ -63,8 +63,8 @@ const AppointmentList = () => {
             
           </div>
 
-          <div className='listContainer h-full flex-1 overflow-y-scroll overflow-x-hidden'>
-            <div className='listheader grid grid-cols-5  px-2 py-3 bg-stone-50 rounded-sm text-sm text-stone-600 text-center font-medium capitalize'>
+          <div className='listContainer h-full flex-1 overflow-y-auto sm:overflow-y-scroll scroll-smooth overflow-x-hidden max-h-75 sm:max-h-none'>
+            <div className='listheader hidden sm:grid grid-cols-5  px-2 py-3 bg-stone-50 rounded-sm text-sm text-stone-600 text-center font-medium capitalize'>
               <div className='flex items-center gap-2'>
                 <input type="checkbox" />
                 <span>patient name</span>

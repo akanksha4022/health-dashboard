@@ -44,7 +44,10 @@ const BarCharts = () => {
   return (   
     <div className="h-64">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={monthlyPatient}>
+        <BarChart 
+          data={monthlyPatient}
+          margin={{right:10,left:-20,top:10 , bottom:0  }}
+        >
 
           <XAxis
             dataKey="month"
