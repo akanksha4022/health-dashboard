@@ -22,6 +22,9 @@ const AppointmentList = () => {
       setAppointments(prev=>[...prev, addnewAppointment])
     }
 
+    const handleDelete = (id)=>{
+      setAppointments(prev=>prev.filter(appointment=>appointment.id!==id));
+    }
   
 
     useEffect(()=>{
@@ -79,11 +82,13 @@ const AppointmentList = () => {
           {appointments.length>0 ? 
             appointments.map((item, index)=>(
               <AppointmentRow 
-              key={index} 
+              key={index}
+              id={item.id} 
               PatientName={item.patient}
               DoctorName={item.doctor} 
               Date={item.date}  
               Time={item.time}
+              onDelete={handleDelete}
               />
             )
 

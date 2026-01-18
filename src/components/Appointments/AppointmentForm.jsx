@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 //create form and update states then create modal and fake button to see its working or not then join with appointments
 const AppointmentForm = ({addAppointment, onClose}) => {
     const [form, setForm] = useState({
+            
             patient:"",
             doctor:"",
             date:"",
@@ -25,10 +26,14 @@ const AppointmentForm = ({addAppointment, onClose}) => {
         e.preventDefault(); 
 
         if(!form.patient || !form.doctor || !form.date || !form.time){
+            alert("Fill all fields")
             return;
         }
 
-        addAppointment(form);
+        addAppointment({
+            ...form,
+            id: Date.now()
+        });
 
         setForm({
             patient:"",
